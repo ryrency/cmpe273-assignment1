@@ -1,0 +1,84 @@
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ docker-machine start default
+Starting "default"...
+Machine "default" is already running.
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ docker-machine ls
+NAME      ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER        ERRORS
+default   *        virtualbox   Running   tcp://192.168.99.100:2376           v17.03.0-ce   
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ docker build -t assignment1-flask-app:latest .
+Sending build context to Docker daemon 961.5 kB
+Step 1/7 : FROM python:2.7.10
+2.7.10: Pulling from library/python
+d4bce7fd68df: Pull complete 
+a3ed95caeb02: Pull complete 
+816152842605: Pull complete 
+5dcab2c7e430: Pull complete 
+dc54ada22a60: Pull complete 
+b7b0de78f891: Pull complete 
+88363ed594cb: Pull complete 
+f8c4a940a0da: Pull complete 
+dd19554ab82c: Pull complete 
+Digest: sha256:a11ab9a16bf6853c9c1134fd78ca1abe11e55ab4fe30eb5dffd688a58e7b5899
+Status: Downloaded newer image for python:2.7.10
+ ---> 4442f7b981c4
+Step 2/7 : MAINTAINER Your Name "yourname@gmail.com"
+ ---> Running in 488ec6cfae9d
+ ---> 6b759985e33a
+Removing intermediate container 488ec6cfae9d
+Step 3/7 : COPY . /app
+ ---> bc31dfd99f2c
+Removing intermediate container 1f345cb0aa3e
+Step 4/7 : WORKDIR /app
+ ---> 06757b5dde64
+Removing intermediate container c7bd7b053984
+Step 5/7 : RUN pip install -r requirements.txt
+ ---> Running in a3b6853ee2b7
+Collecting flask (from -r requirements.txt (line 1))
+  Downloading Flask-0.12-py2.py3-none-any.whl (82kB)
+Collecting click>=2.0 (from flask->-r requirements.txt (line 1))
+  Downloading click-6.7-py2.py3-none-any.whl (71kB)
+Collecting itsdangerous>=0.21 (from flask->-r requirements.txt (line 1))
+  Downloading itsdangerous-0.24.tar.gz (46kB)
+Collecting Werkzeug>=0.7 (from flask->-r requirements.txt (line 1))
+  Downloading Werkzeug-0.11.15-py2.py3-none-any.whl (307kB)
+Collecting Jinja2>=2.4 (from flask->-r requirements.txt (line 1))
+  Downloading Jinja2-2.9.5-py2.py3-none-any.whl (340kB)
+Collecting MarkupSafe>=0.23 (from Jinja2>=2.4->flask->-r requirements.txt (line 1))
+  Downloading MarkupSafe-0.23.tar.gz
+Building wheels for collected packages: itsdangerous, MarkupSafe
+  Running setup.py bdist_wheel for itsdangerous
+  Stored in directory: /root/.cache/pip/wheels/fc/a8/66/24d655233c757e178d45dea2de22a04c6d92766abfb741129a
+  Running setup.py bdist_wheel for MarkupSafe
+  Stored in directory: /root/.cache/pip/wheels/a3/fa/dc/0198eed9ad95489b8a4f45d14dd5d2aee3f8984e46862c5748
+Successfully built itsdangerous MarkupSafe
+Installing collected packages: click, itsdangerous, Werkzeug, MarkupSafe, Jinja2, flask
+Successfully installed Jinja2-2.9.5 MarkupSafe-0.23 Werkzeug-0.11.15 click-6.7 flask-0.12 itsdangerous-0.24
+You are using pip version 7.1.2, however version 9.0.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+ ---> 9f9e0fde8ba6
+Removing intermediate container a3b6853ee2b7
+Step 6/7 : ENTRYPOINT python
+ ---> Running in 3b8a969bfbb7
+ ---> d0be4cc8ab8f
+Removing intermediate container 3b8a969bfbb7
+Step 7/7 : CMD app.py
+ ---> Running in 95a760459a5c
+ ---> 784f83b51209
+Removing intermediate container 95a760459a5c
+Successfully built 784f83b51209
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ docker images
+REPOSITORY              TAG                 IMAGE ID            CREATED             SIZE
+assignment1-flask-app   latest              784f83b51209        13 seconds ago      683 MB
+python                  2.7.10              4442f7b981c4        15 months ago       675 MB
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ docker-machine ls
+NAME      ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER        ERRORS
+default   *        virtualbox   Running   tcp://192.168.99.100:2376           v17.03.0-ce   
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ docker run -d -p 5000:5000 assignment1-flask-app
+563b4293a4492628234179a0150fe705207d6fe09db3d567554f5d57ef68834c
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ docker-machine ls
+NAME      ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER        ERRORS
+default   *        virtualbox   Running   tcp://192.168.99.100:2376           v17.03.0-ce   
+Sajus-MBP:cmpe273-assignment1 sajujoseph$ 
